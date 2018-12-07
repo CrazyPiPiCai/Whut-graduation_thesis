@@ -5,68 +5,34 @@ import {
   View,
   Alert
 } from "react-native";
+import {Actions} from 'react-native-router-flux';
 
-import LabelTest from "./component/label";
-import ButtonTest from "./component/button";
-import TextInputTest from "./component/textInput";
-import DropdownTest from "./component/dropdown";
-import PhotoTest from "./component/photo";
+import LabelTest from "../component/label";
+import ButtonTest from "../component/button";
+import TextInputTest from "../component/textInput";
+import DropdownTest from "../component/dropdown";
+import PhotoTest from "../component/photo";
 
-//忽略警告
-//console.ignoredYellowBox = ['ListView is deprecated and will be removed in a future release. See https://fb.me/nolistview for more information'];
-console.disableYellowBox = true // 关闭全部黄色警告
- 
-//应用号
-const App_number = 1;
+// 关闭全部黄色警告
+console.disableYellowBox = true
 
 type Props = {};
 export default class InfoView extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      title_text: '',
-      title_size: 0,
-      sheet_name:'',
       jsonNumber: 0,
       data: []
     };
     this.DynamicLoading = this.DynamicLoading.bind(this);
   }
   componentDidMount() {
-    this._fetHeadline();
+    this._fetLayout();
   }
   //网络请求-加载配置表信息
-  _fetHeadline() {
-    fetch(`http://225858ws28.51mypc.cn:35224/headline?App_Number=${App_number}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      }
-    })
-      .then((response) => response.json())
-      .then((jsonData) => {
-        this.setState({
-            title_text: jsonData[0].title_text,
-            title_size: jsonData[0].title_size,
-            sheet_name: jsonData[0].sheet_name
-          });
-        return jsonData[0].sheet_name;
-      })
-      .then((sheetName) =>{
-        this._fetLayout(sheetName);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }
-  _fetLayout(sheetName) {
-    fetch(`http://225858ws28.51mypc.cn:35224/layout?sheet_name=${sheetName}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      }
+  _fetLayout() {
+    fetch(`http://localhost:3000/select?sheet_name=${this.props.passData}`, {
+      method: "GET"
     })
       .then((response) => response.json())
       .then((jsonData) => {

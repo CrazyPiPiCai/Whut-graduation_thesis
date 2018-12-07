@@ -4,6 +4,7 @@ import ModalDropdown from "react-native-modal-dropdown";
 
 import global from "../others/global";
 
+//注意！点击上一级下拉框产生下一级的改变未实现
 export default class DropdownTest extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +16,7 @@ export default class DropdownTest extends Component {
   }
   componentDidMount() {
     fetch(
-      `http://225858ws28.51mypc.cn:35224/QF?sheet_name=${this.props.net_api}`,
+      `http://localhost:3000/select?sheet_name=${this.props.net_api}`,
       { method: "GET" }
     )
       .then((response) => response.json())

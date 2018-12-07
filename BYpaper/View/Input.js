@@ -6,11 +6,11 @@ import {
   Alert
 } from "react-native";
 
-import LabelTest from "./component/label";
-import ButtonTest from "./component/button";
-import TextInputTest from "./component/textInput";
-import DropdownTest from "./component/dropdown";
-import PhotoTest from "./component/photo";
+import LabelTest from "../component/label";
+import ButtonTest from "../component/button";
+import TextInputTest from "../component/textInput";
+import DropdownTest from "../component/dropdown";
+import PhotoTest from "../component/photo";
 
 //忽略警告
 //console.ignoredYellowBox = ['ListView is deprecated and will be removed in a future release. See https://fb.me/nolistview for more information'];

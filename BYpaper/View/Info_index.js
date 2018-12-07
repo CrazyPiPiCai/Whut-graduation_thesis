@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 
 export default class InfoIndexView extends Component {
   constructor(props) {
@@ -9,14 +9,12 @@ export default class InfoIndexView extends Component {
     this.state = {
       refresh:false,
       tableHead: ['序号', '应用名','跳转'],
-      data:[],
-      tableData: [],
-      sheet_name:''
+      data:[]
     }
   }
 
   componentDidMount() {
-    fetch(`http://225858ws28.51mypc.cn:21337/all`, {
+    fetch(`http://localhost:3000/select?sheet_name=info_index`, {
       method: "GET"
     })
       .then((response) => response.json())
@@ -26,7 +24,6 @@ export default class InfoIndexView extends Component {
           jsonNumber: jsonData.length,
           data: jsonData
         });
-        //this._jsonExtract();
       })
       .catch((error) => {
         alert(error);
@@ -46,11 +43,11 @@ export default class InfoIndexView extends Component {
       for (var i = 0; i < this.state.jsonNumber; i++) {
         const {
           ID,
-          应用名
+          title_text
         } = this.state.data[i];
         result.push([
           `${ID}`,
-          `${应用名}`,
+          `${title_text}`,
           '按钮'
         ]);
       }
@@ -62,9 +59,15 @@ export default class InfoIndexView extends Component {
 
   _navigation(index) {
     const {
-        表名
+        sheet_name
       } = this.state.data[index];
-    Actions.sheet({passData:`${表名}`});
+    switch(index) {
+      case 0:
+      Actions.one_main({passData:`${sheet_name}`});
+      break;
+      case 1:
+      Actions.one_second({passData:`${sheet_name}`});
+    }
   }
 
   render() {
@@ -100,7 +103,7 @@ export default class InfoIndexView extends Component {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
-  headline: {fontSize:20,justifyContent:'center',textAlign: 'center'},
+  //headline: {fontSize:20,justifyContent:'center',textAlign: 'center'},
   head: { height: 40, backgroundColor: '#808B97' },
   text: { margin: 6 ,textAlign: 'center'},
   row: { flexDirection: 'row', backgroundColor: '#FFF1C1' },
