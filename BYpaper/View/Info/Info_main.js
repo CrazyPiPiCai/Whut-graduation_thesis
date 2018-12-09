@@ -7,11 +7,11 @@ import {
 } from "react-native";
 import {Actions} from 'react-native-router-flux';
 
-import LabelTest from "../component/label";
-import ButtonTest from "../component/button";
-import TextInputTest from "../component/textInput";
-import DropdownTest from "../component/dropdown";
-import PhotoTest from "../component/photo";
+import LabelTest from "../../component/label";
+import ButtonTest from "../../component/button";
+import TextInputTest from "../../component/textInput";
+import DropdownTest from "../../component/dropdown";
+import PhotoTest from "../../component/photo";
 
 // 关闭全部黄色警告
 console.disableYellowBox = true

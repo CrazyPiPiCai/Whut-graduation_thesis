@@ -11,19 +11,17 @@ import { View, Text } from "react-native";
 import { Router, Scene, Tabs, Stack } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-import InfoIndexView from "./View/Info_index";
-import InfoView from "./View/Info_main";
-import InfoCompletionView from "./View/Info_completion";
-import SelectView from "./View/Select_index";
-import SheetView from "./View/Select_sheet";
-import InputView from "./View/Input";
+import InfoIndexView from "./View/Info/Info_index";
+import InfoView from "./View/Info/Info_main";
+import InfoCompletionView from "./View/Info/Info_completion";
+import SelectView from "./View/Select/Select_index";
+import SheetView from "./View/Select/Select_sheet";
+import InputView from "./View/Input/Input";
 
-//注意！tabber点击后改变未实现
 class TabIcon extends Component {
   render() {
     //selected属性？
-    var color = this.props.selected ? "#00f240" : "#301c2a";
-
+    //this.props.selected
     return (
       <View
         style={{
@@ -34,10 +32,7 @@ class TabIcon extends Component {
           justifyContent: "center"
         }}
       >
-        <Icon style={{ color: color }} name={this.props.iconName} size={18} />
-        <Text style={{ color: color, fontSize: 12, marginTop: 10 }}>
-          {this.props.title}
-        </Text>
+        <Icon name={this.props.iconName} size={18} />
       </View>
     );
   }
@@ -52,7 +47,7 @@ export default class App extends Component {
             key="tabbar"
             swipeEnabled
             wrap={false}
-            showLabel={false}
+            showLabel={true}
             tabBarStyle={{ backgroundColor: "#eee" }}
           >
             <Scene
