@@ -27,20 +27,10 @@ export default class InfoCompletionView extends Component {
           tableNumber: jsonData.length,
           tableData: jsonData
         });
-        return jsonData.length;
-      })
-      .then((num) => {
-        this._globalNull(num);
       })
       .catch((error) => {
         alert(error);
       });
-  }
-  //对全局变量赋空值
-  _globalNull(num) {
-    for (var i = 0; i < num; i++) {
-      global.Info_completion_text.push("");
-    }
   }
   //提取表内容并赋值
   _tableDataExtract() {
@@ -97,7 +87,27 @@ export default class InfoCompletionView extends Component {
               {rowData.map((cellData, cellIndex) => (
                 <Cell
                   key={cellIndex}
-                  data={cellIndex === 2 ? element1(cellData, index) : cellData}
+                  data={
+                    cellIndex === 2 ? element1(cellData, index) : cellData
+                    /*
+                    (cellData, cellIndex) => {
+                    if(cellIndex === 2) {
+                      return cellData
+                      //element1(cellData, cellIndex);
+                    } else {
+                      return cellData
+                    }
+                  }
+                    switch (cellIndex) {
+                      case 2:
+                        element1(cellData, cellIndex);
+                        break;
+                      default:
+                        return cellData;
+                        break;
+                    }
+                    */
+                  }
                   style={cellIndex === 1 ? styles.colBig : styles.colSmall}
                   textStyle={styles.text}
                 />
@@ -108,6 +118,10 @@ export default class InfoCompletionView extends Component {
         <Button
           onPress={() => console.log(global.Info_completion_text)}
           title={"保存"}
+        />
+        <Button
+          onPress={() => console.log(global.Info_completion_text)}
+          title={"提交"}
         />
       </View>
     );

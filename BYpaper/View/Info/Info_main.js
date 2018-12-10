@@ -13,6 +13,8 @@ import TextInputTest from "../../component/textInput";
 import DropdownTest from "../../component/dropdown";
 import PhotoTest from "../../component/photo";
 
+import global from '../../others/global'
+
 // 关闭全部黄色警告
 console.disableYellowBox = true
 
@@ -52,19 +54,19 @@ export default class InfoView extends Component<Props> {
       const { ID, type, title, data } = this.state.data[i];
       switch (type) {
         case "label":
-          result.push(<LabelTest key={ID} titleText={title} />);
+          result.push(<LabelTest key={ID} titleText={title} ID={ID}/>);
           break;
         case "textInput":
-          result.push(<TextInputTest key={ID} titleText={title} />);
+          result.push(<TextInputTest key={ID} titleText={title} ID={ID}/>);
           break;
         case "button":
           result.push(<ButtonTest key={ID} titleText={title} />);
           break;
         case "dropDown":
-          result.push(<DropdownTest key={ID} titleText={title} net_api={data} />);
+          result.push(<DropdownTest key={ID} titleText={title} net_api={data} ID={ID} />);
           break;
         case "photo":
-          result.push(<PhotoTest key={ID} titleText={title} />);
+          result.push(<PhotoTest key={ID} titleText={title} ID={ID}/>);
           break;
       }
     }
@@ -84,11 +86,9 @@ const WebTestStyles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    paddingTop: 10
   },
   headline: {
     fontSize: 50,
-    marginTop: 50,
     textAlign:'center',
     alignItems:'center',
     justifyContent:'center',

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Button, StyleSheet, Alert } from "react-native";
 
-import global from '../others/global';
+import global from "../others/global";
 
 export default class ButtonTest extends Component {
   constructor(props) {
@@ -11,32 +11,51 @@ export default class ButtonTest extends Component {
       labelText: ""
     };
   }
-  _postData() {
-    console.log('发送信息！')
-  }
   //获取当前时间
   _getmyDate() {
     var date = new Date();
-  
+
     var year = date.getFullYear().toString();
-    var month = (date.getMonth()+1).toString();
+    var month = (date.getMonth() + 1).toString();
     var day = date.getDate().toString();
-    var hour =  date.getHours().toString();
+    var hour = date.getHours().toString();
     var minute = date.getMinutes().toString();
-  
-    return year+'年'+month+'月'+day+'日'+' '+hour+':'+minute;
-  };
+
+    return year + "年" + month + "月" + day + "日" + " " + hour + ":" + minute;
+  }
   _action(para) {
-    switch(para) {
-      case '保存':
-      global.finalText.push(this._getmyDate());
-      global.finalText.push('当前操作人员');
-      return alert(global.finalText);
-      break;
-      case '提交':
-      return alert('已经提交！');
-      break;
+    switch (para) {
+      case "保存":
+        console.log(global.finalText);
+        break;
+      case "提交":
+        this._postData();
+        break;
     }
+  }
+  //post提交
+  _postData() {
+    let parameters = new FormData();
+    parameters.append("mt", "30013");
+    parameters.append("pg", "1");
+    parameters.append("ps", "20");
+
+    fetch("http://localhost:3000/formdata", {
+      method: "POST",
+      body: parameters
+    })
+      .then(result => {
+        if (result.ok) {
+          console.log(result);
+          result.json().then(obj => {
+            console.log(obj);
+          });
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        Alert.alert("Error");
+      });
   }
   render() {
     return (
@@ -54,6 +73,6 @@ export default class ButtonTest extends Component {
 }
 const SelfStyles = StyleSheet.create({
   container: {
-    justifyContent:'center',
+    justifyContent: "center"
   }
 });

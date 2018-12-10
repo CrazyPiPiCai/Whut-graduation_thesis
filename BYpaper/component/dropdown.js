@@ -46,7 +46,7 @@ export default class DropdownTest extends Component {
           style={SelfStyles.rightDropDown}
           defaultValue={"请选择！"}
           options={this.selectOption()}
-          onSelect={(index, value) => global.finalText.push(value)}
+          onSelect={(index, value) => global.finalText[this.props.ID-1] = value}
         />
       </View>
     );

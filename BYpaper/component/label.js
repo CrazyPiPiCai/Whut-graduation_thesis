@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
+import global from "../others/global";
+
 export default class LabelTest extends Component {
   constructor(props) {
     super(props);
@@ -26,9 +28,11 @@ export default class LabelTest extends Component {
   _dataSource(para) {
     switch (para) {
       case "时间":
+        global.finalText[this.props.ID-1] = this._getmyDate()
         return this._getmyDate();
         break;
       case "人员":
+        global.finalText[this.props.ID-1] = '当前操作人员'
         return '当前操作人员';
         break;
     }
