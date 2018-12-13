@@ -36,23 +36,26 @@ export default class ButtonTest extends Component {
   //post提交
   _postData() {
     let parameters = new FormData();
-    parameters.append("mt", "30013");
-    parameters.append("pg", "1");
-    parameters.append("ps", "20");
+    parameters.append("data1", `${global.finalText[0]}`);
+    parameters.append("data2", `${global.finalText[1]}`);
+    parameters.append("data3", `${global.finalText[2]}`);
+    parameters.append("data4", `${global.finalText[3]}`);
+    let file = {uri: `${global.imagePath}`, type: 'application/octet-stream', name: 'image.jpg'};
+    parameters.append("file", file);
 
-    fetch("http://localhost:3000/formdata", {
+    fetch("http://localhost:3000/image", {
       method: "POST",
       body: parameters
     })
-      .then(result => {
-        if (result.ok) {
-          console.log(result);
-          result.json().then(obj => {
-            console.log(obj);
-          });
+      .then((result) => result.json())
+      .then((data) => {
+        if(data.code === 0) {
+          Alert.alert('提交成功！')
+        } else {
+          Alert.alert('提交失败！')
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         Alert.alert("Error");
       });

@@ -42,6 +42,7 @@ export default class PhotoTest extends Component {
         this.setState({
           avatarSource: source
         });
+        global.imagePath = source.uri;
       }
     });
   }
