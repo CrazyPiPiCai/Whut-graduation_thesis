@@ -63,10 +63,10 @@ export default class InfoIndexView extends Component {
       } = this.state.data[index];
     switch(index) {
       case 0:
-      Actions.one_main({passData:`${sheet_name}`});
+      Actions.one_main({passData:`${sheet_name}`,identity:'质量反馈'});
       break;
       case 1:
-      Actions.one_second({passData:`${sheet_name}`});
+      Actions.one_second({passData:`${sheet_name}`,identity:'完工反馈'});
     }
   }
 

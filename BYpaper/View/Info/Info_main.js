@@ -60,7 +60,7 @@ export default class InfoView extends Component<Props> {
           result.push(<TextInputTest key={ID} titleText={title} ID={ID}/>);
           break;
         case "button":
-          result.push(<ButtonTest key={ID} titleText={title} />);
+          result.push(<ButtonTest key={ID} titleText={title} identity={this.props.identity}/>);
           break;
         case "dropDown":
           result.push(<DropdownTest key={ID} titleText={title} net_api={dataSource} ID={ID} />);

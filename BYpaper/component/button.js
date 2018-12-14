@@ -26,15 +26,19 @@ export default class ButtonTest extends Component {
   _action(para) {
     switch (para) {
       case "保存":
-        console.log(global.finalText);
+        console.log('ok');
         break;
       case "提交":
-        this._postData();
+        if (this.props.identity === '质量反馈') {
+          this._postImageData()
+        } else if (this.props.identity === '完工反馈') {
+          this._posttextData()
+        }
         break;
     }
   }
   //post提交
-  _postData() {
+  _postImageData() {
     let parameters = new FormData();
     parameters.append("data1", `${global.finalText[0]}`);
     parameters.append("data2", `${global.finalText[1]}`);
@@ -54,6 +58,26 @@ export default class ButtonTest extends Component {
         } else {
           Alert.alert('提交失败！')
         }
+      })
+      .catch((error) => {
+        console.log(error);
+        Alert.alert("Error");
+      });
+  }
+  _posttextData() {
+    let parameters = new FormData();
+    parameters.append("data1", `${global.Info_completion_text[0]}`);
+    parameters.append("data2", `${global.Info_completion_text[1]}`);
+    parameters.append("data3", `${global.Info_completion_text[2]}`);
+    parameters.append("data4", `${global.Info_completion_text[3]}`);
+
+    fetch("http://localhost:3000/formdata", {
+      method: "POST",
+      body: parameters
+    })
+      .then((result) => result.text())
+      .then((data) => {
+        Alert.alert(data);
       })
       .catch((error) => {
         console.log(error);

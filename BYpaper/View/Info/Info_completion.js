@@ -3,6 +3,7 @@ import { StyleSheet, View, TextInput, Alert, Button } from "react-native";
 import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
 import CheckBox from "react-native-check-box";
 
+import ButtonTest from "../../component/button"; 
 import global from "../../others/global";
 
 export default class InfoCompletionView extends Component {
@@ -115,14 +116,7 @@ export default class InfoCompletionView extends Component {
             </TableWrapper>
           ))}
         </Table>
-        <Button
-          onPress={() => console.log(global.Info_completion_text)}
-          title={"保存"}
-        />
-        <Button
-          onPress={() => console.log(global.Info_completion_text)}
-          title={"提交"}
-        />
+        <ButtonTest titleText={'提交'} identity={this.props.identity}/>
       </View>
     );
   }
