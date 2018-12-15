@@ -13,7 +13,6 @@ export default class InfoCompletionView extends Component {
       tableHeadData: ["序号", "项目内容", "完成情况"],
       tableData: [],
       tableRefresh: false,
-      tableCheck: [],
       tableNumber: 0
     };
   }
@@ -33,13 +32,12 @@ export default class InfoCompletionView extends Component {
         alert(error);
       });
   }
-  //提取表内容并赋值
   _tableDataExtract() {
     if (this.state.tableRefresh) {
       const result = [];
       for (var i = 0; i < this.state.tableNumber; i++) {
-        const { ID, content, evaluate } = this.state.tableData[i];
-        result.push([`${ID}`, `${content}`, `${evaluate}`]);
+        const { 序号, 项目内容, 完工情况 } = this.state.tableData[i];
+        result.push([`${序号}`, `${项目内容}`, `${完工情况}`]);
       }
       return result;
     } else {
@@ -61,7 +59,7 @@ export default class InfoCompletionView extends Component {
         }}
       />
     );
-
+    /*
     const element2 = (data, index) => (
       <CheckBox
         style={{ flex: 1, margin: 5 }}
@@ -73,7 +71,7 @@ export default class InfoCompletionView extends Component {
         isChecked={this.state.isChecked}
       />
     );
-
+    */
     return (
       <View style={styles.container}>
         <Table borderStyle={{ borderColor: "transparent" }}>

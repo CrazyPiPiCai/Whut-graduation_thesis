@@ -70,6 +70,8 @@ export default class ButtonTest extends Component {
     parameters.append("data2", `${global.Info_completion_text[1]}`);
     parameters.append("data3", `${global.Info_completion_text[2]}`);
     parameters.append("data4", `${global.Info_completion_text[3]}`);
+    parameters.append("data5", `${global.Info_completion_text[4]}`);
+    parameters.append("data6", `${global.Info_completion_text[5]}`);
 
     fetch("http://localhost:3000/formdata", {
       method: "POST",
