@@ -20,6 +20,7 @@ const SelfStyles = StyleSheet.create({
   },
   headline: {
     fontSize: 30,
-    marginTop: 50
+    marginTop: 50,
+    marginBottom: 10
   },
 });

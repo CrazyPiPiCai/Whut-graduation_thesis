@@ -102,6 +102,7 @@ export default class ButtonTest extends Component {
 }
 const SelfStyles = StyleSheet.create({
   container: {
-    justifyContent: "center"
+    justifyContent: "center",
+    marginTop: 10
   }
 });

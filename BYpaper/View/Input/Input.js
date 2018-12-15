@@ -47,16 +47,16 @@ export default class InputView extends Component<Props> {
   DynamicLoading() {
     const result = [];
     for (var i = 0; i < this.state.jsonNumber; i++) {
-      const { ID, type, title, data } = this.state.data[i];
+      const { id, type, title, maxLength, defaultValue, editable, placeholder } = this.state.data[i];
       switch (type) {
         case "headline":
-        result.push(<HeadlineTest key={ID} titleText={title} />);
+          result.push(<HeadlineTest key={id} titleText={title} />);
           break;
         case "textInput":
-          result.push(<TextInputTest key={ID} titleText={title} />);
+          result.push(<TextInputTest key={id} titleText={title} maxLength={maxLength} defaultValue={defaultValue} editable={editable} placeholder={placeholder} />);
           break;
         case "button":
-          result.push(<ButtonTest key={ID} titleText={title} />);
+          result.push(<ButtonTest key={id} titleText={title} />);
           break;
       }
     }
@@ -75,10 +75,11 @@ const WebTestStyles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    paddingTop: 10
+    paddingTop: 10,
+    backgroundColor: '#fff'
   },
   component: {
-    marginTop: 5,
+    marginTop: 10,
     marginLeft: 10
   }
 });

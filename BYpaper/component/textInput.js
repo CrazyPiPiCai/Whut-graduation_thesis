@@ -1,22 +1,33 @@
 import React, { Component } from "react";
 import { View, TextInput, Text, StyleSheet } from "react-native";
 
-import global from '../others/global';
+import global from "../others/global";
 
 export default class TextInputTest extends Component {
-  
   constructor(props) {
     super(props);
-    this.state = {
-      jsonNumber: 0,
-      labelText: ""
-    };
+  }
+  _editableToBool(){
+    if(this.props.editable == 1) {
+      return true
+    } else {
+      return false
+    }
   }
   render() {
     return (
       <View style={SelfStyles.container}>
         <Text style={SelfStyles.leftlabel}>{this.props.titleText} :</Text>
-        <TextInput style={SelfStyles.TextInput} onChangeText={(text) => {global.finalText.push(text)}}/>
+        <TextInput
+          style={SelfStyles.TextInput}
+          maxLength={this.props.maxLength}
+          defaultValue={this.props.defaultValue}
+          editable={this._editableToBool()}
+          placeholder={this.props.placeholder}
+          onChangeText={text => {
+            global.customInput.push(text);
+          }}
+        />
       </View>
     );
   }
@@ -26,14 +37,14 @@ const SelfStyles = StyleSheet.create({
     flexDirection: "row"
   },
   leftlabel: {
-    marginTop: 5,
+    marginTop: 10,
     marginLeft: 10
   },
   TextInput: {
-    borderWidth:1,
+    borderWidth: 1,
     borderRadius: 4,
-    minWidth:100,
-    marginLeft:5,
-    marginTop:5
+    minWidth: 100,
+    marginLeft: 5,
+    marginTop: 10
   }
 });
