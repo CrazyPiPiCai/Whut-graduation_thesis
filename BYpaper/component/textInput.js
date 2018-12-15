@@ -15,7 +15,7 @@ export default class TextInputTest extends Component {
   render() {
     return (
       <View style={SelfStyles.container}>
-        <Text style={SelfStyles.leftlabel}>{this.props.titleText}</Text>
+        <Text style={SelfStyles.leftlabel}>{this.props.titleText} :</Text>
         <TextInput style={SelfStyles.TextInput} onChangeText={(text) => {global.finalText.push(text)}}/>
       </View>
     );

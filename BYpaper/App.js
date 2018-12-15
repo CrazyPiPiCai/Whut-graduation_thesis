@@ -62,6 +62,14 @@ export default class App extends Component {
             </Scene>
 
             <Scene
+              key="input"
+              iconName="edit"
+              title="输入设定"
+              icon={TabIcon}
+              component={InputView}
+            />
+
+            <Scene
               key="select"
               iconName="search"
               title="呈现查询"
@@ -69,14 +77,6 @@ export default class App extends Component {
             >
               <Scene key="two_main" component={SheetView} title="功能呈现" />
             </Scene>
-
-            <Scene
-              key="input"
-              iconName="edit"
-              title="输入设定"
-              icon={TabIcon}
-              component={InputView}
-            />
           </Tabs>
         </Scene>
       </Router>
