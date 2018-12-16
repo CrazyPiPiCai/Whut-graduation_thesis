@@ -24,7 +24,7 @@ export default class TextInputTest extends Component {
           defaultValue={this.props.defaultValue}
           editable={this._editableToBool()}
           placeholder={this.props.placeholder}
-          onChangeText={text => {
+          onChangeText={(text) => {
             global.customInput.push(text);
           }}
         />

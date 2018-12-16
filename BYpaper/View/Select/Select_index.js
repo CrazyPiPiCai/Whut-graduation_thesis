@@ -1,111 +1,182 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
-import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
-import {Actions} from 'react-native-router-flux';
+import React, { Component } from "react";
+import {
+  View,
+  TextInput,
+  FlatList,
+  StyleSheet,
+  StatusBar,
+  Text,
+  Image,
+  TouchableOpacity
+} from "react-native";
+import { Actions } from "react-native-router-flux";
 
 export default class SelectView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      refresh:false,
-      tableHead: ['序号', '应用名','跳转'],
-      data:[],
-      tableData: [],
-      sheet_name:''
-    }
+      jsonNumber: 0,
+      data: []
+    };
   }
 
-  componentDidMount() {
-    fetch(`http://225858ws28.51mypc.cn:21337/all`, {
+  _renderItem = item => {
+    return (
+      <TouchableOpacity style={styles.itemList}>
+        <Image
+              style={styles.itemImage}
+              source={{ uri: `${item.item.photo}`, cache: "force-cache" }}
+            />
+        <View style={styles.itemContainer}>
+          <Text style={styles.itemTitle}>
+              {item.item.ship}的{item.item.section}
+          </Text>
+          <View>
+            <Text style={{ marginLeft: 5, marginTop: 5 }}>
+              拍摄时间：{item.item.time}
+            </Text>
+            <Text style={{ marginLeft: 5, marginTop: 5 }}>
+              操作人员：{item.item.people}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  _fetchData(quest) {
+    fetch(`http://localhost:3000/search?quest=${quest}`, {
       method: "GET"
     })
       .then((response) => response.json())
       .then((jsonData) => {
         this.setState({
-          refresh: true,
           jsonNumber: jsonData.length,
           data: jsonData
         });
-        //this._jsonExtract();
       })
       .catch((error) => {
         alert(error);
       });
   }
 
-  //Alert警告
-  /*
-  _alertIndex(index) {
-    Alert.alert(`This is row ${index + 1}`);
-  }
-  */
-
-  _jsonExtract() {
-    if (this.state.refresh) {
-      const result = [];
-      for (var i = 0; i < this.state.jsonNumber; i++) {
-        const {
-          ID,
-          应用名
-        } = this.state.data[i];
-        result.push([
-          `${ID}`,
-          `${应用名}`,
-          '按钮'
-        ]);
-      }
-      return result;
-    } else {
-      return [];
-    }
-  }
-
-  _navigation(index) {
-    const {
-        表名
-      } = this.state.data[index];
-    Actions.sheet({passData:`${表名}`});
-  }
-
+  //行间分割线
+  _separator = () => {
+    return <View style={{ height: 1, backgroundColor: "#7b7b7b" }} />;
+  };
+  
   render() {
-    const state = this.state;
-    const element = (data, index) => (
-      <TouchableOpacity onPress={() => this._navigation(index)}>
-        <View style={styles.btn}>
-          <Text style={styles.btnText}>选择</Text>
-        </View>
-      </TouchableOpacity>
-    );
-
     return (
       <View style={styles.container}>
-        <Table borderStyle={{borderColor: 'transparent'}}>
-          <Row data={state.tableHead} style={styles.head} textStyle={styles.text} flexArr={[1,2,1]}/>
-          {
-            this._jsonExtract().map((rowData, index) => (
-              <TableWrapper key={index} style={styles.row}>
-                {
-                  rowData.map((cellData, cellIndex) => (
-                    <Cell key={cellIndex} data={cellIndex === 2 ? element(cellData, index) : cellData} style={cellIndex === 1 ? styles.colBig : styles.colSmall} textStyle={styles.text}/>
-                  ))
-                }
-              </TableWrapper>
-            ))
-          }
-        </Table>
+        <StatusBar
+          animated={true}
+          hidden={false}
+          backgroundColor={"transparent"}
+          translucent={false}
+          barStyle={"light-content"}
+        />
+        <View style={styles.searchBox}>
+          <Image
+            source={require("../../image/search.png")}
+            style={styles.searchIcon}
+          />
+          <TextInput
+            style={styles.inputText}
+            autoCapitalize="none" //设置首字母不自动大写
+            underlineColorAndroid={"transparent"} //下划线颜色设置为透明
+            placeholderTextColor={"#aaa"} //设置占位符颜色
+            placeholder={"搜索轨迹名称"}
+            onChangeText={text => this._fetchData(text)}
+          />
+        </View>
+        <View ItemSeparatorComponent={this._separator} />
+        <View style={styles.trailList}>
+          <FlatList
+            ref={flatList => (this._flatList = flatList)}
+            ItemSeparatorComponent={this._separator}
+            renderItem={this._renderItem}
+            keyExtractor={(item, index) => `${index}`}
+            data={this.state.data}
+          />
+        </View>
       </View>
-    )
+    );
   }
 }
-
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
-  headline: {fontSize:20,justifyContent:'center',textAlign: 'center'},
-  head: { height: 40, backgroundColor: '#808B97' },
-  text: { margin: 6 ,textAlign: 'center'},
-  row: { flexDirection: 'row', backgroundColor: '#FFF1C1' },
-  colSmall: { flex: 1},
-  colBig :{ flex: 2},
-  btn: { width: 58, height: 18, backgroundColor: '#78B7BB',  borderRadius: 2 ,alignSelf:'center'},
-  btnText: { textAlign: 'center', color: '#fff' }
+  container: {
+    flexDirection: "column",
+    flex: 1,
+    paddingTop: 27,
+    paddingBottom: 5,
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: "#cdcdcd"
+  },
+  searchBox: {
+    flex: 1,
+    height: 35,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 5,
+    marginTop: 10,
+    flexDirection: "row",
+    backgroundColor: "#E6E7E8",
+    borderRadius: 5
+  },
+  searchIcon: {
+    alignSelf: "center",
+    marginLeft: 7,
+    marginRight: 7,
+    width: 18,
+    height: 18
+  },
+  inputText: {
+    alignSelf: "center",
+    marginTop: 0,
+    flex: 1,
+    height: 30,
+    marginLeft: 5,
+    marginRight: 5,
+    fontSize: 18,
+    lineHeight: 30,
+    textAlignVertical: "center",
+    textDecorationLine: "none"
+  },
+  trailList: {
+    flex: 20,
+    width: 400,
+    height: 100,
+    marginLeft: 5,
+    marginRight: 5
+  },
+  itemList: {
+    flexDirection: "row",
+    flex: 1,
+    marginLeft: 20,
+    paddingBottom: 5,
+    paddingTop: 5
+  },
+  itemContainer: {
+    flex: 4.1,
+    marginLeft: 5,
+    justifyContent: "center"
+  },
+  itemTitle: {
+    fontSize: 15,
+    color: "#42a5cb",
+    fontWeight: "700",
+    marginLeft: 10,
+    marginTop: 5
+  },
+  itemImage: {
+    height: 65,
+    width: 65,
+    flex: 1,
+    alignItems: "center",
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingRight: 5
+  }
 });

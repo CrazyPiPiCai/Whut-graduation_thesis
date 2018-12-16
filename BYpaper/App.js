@@ -15,7 +15,6 @@ import InfoIndexView from "./View/Info/Info_index";
 import InfoView from "./View/Info/Info_main";
 import InfoCompletionView from "./View/Info/Info_completion";
 import SelectView from "./View/Select/Select_index";
-import SheetView from "./View/Select/Select_sheet";
 import InputView from "./View/Input/Input";
 
 class TabIcon extends Component {
@@ -74,9 +73,8 @@ export default class App extends Component {
               iconName="search"
               title="呈现查询"
               icon={TabIcon}
-            >
-              <Scene key="two_main" component={SheetView} title="功能呈现" />
-            </Scene>
+              component={SelectView}
+            />
           </Tabs>
         </Scene>
       </Router>
