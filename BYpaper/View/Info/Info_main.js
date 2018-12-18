@@ -76,7 +76,6 @@ export default class InfoView extends Component<Props> {
   render() {
     return (
       <View style={WebTestStyles.container}>
-        <Text style={WebTestStyles.headline}>{this.state.title_text}</Text>
         <View style={WebTestStyles.component}>{this.DynamicLoading()}</View>
       </View>
     );
@@ -86,13 +85,7 @@ const WebTestStyles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-  },
-  headline: {
-    fontSize: 50,
-    textAlign:'center',
-    alignItems:'center',
-    justifyContent:'center',
-    textAlignVertical:'center',
+    backgroundColor: '#fff'
   },
   component: {
     marginTop: 5,
