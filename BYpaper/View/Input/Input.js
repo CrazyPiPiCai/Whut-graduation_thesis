@@ -25,7 +25,7 @@ export default class InputView extends Component<Props> {
     this.DynamicLoading = this.DynamicLoading.bind(this);
   }
   componentDidMount() {
-    fetch(`http://localhost:3000/select?sheet_name=input_layout`, {
+    fetch(`http://129.28.79.59:3000/select?sheet_name=input_layout`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

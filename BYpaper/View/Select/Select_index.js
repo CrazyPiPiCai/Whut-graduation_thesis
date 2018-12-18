@@ -45,7 +45,7 @@ export default class SelectView extends Component {
   };
 
   _fetchData(quest) {
-    fetch(`http://localhost:3000/search?quest=${quest}`, {
+    fetch(`http://129.28.79.59:3000/search?quest=${quest}`, {
       method: "GET"
     })
       .then((response) => response.json())

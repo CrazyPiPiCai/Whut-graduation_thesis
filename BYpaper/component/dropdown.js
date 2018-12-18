@@ -35,7 +35,7 @@ export default class DropdownTest extends Component {
   }
   _fetchFirstDropdown() {
     fetch(
-      `http://localhost:3000/select?sheet_name=${this.props.net_api}`,
+      `http://129.28.79.59:3000/select?sheet_name=${this.props.net_api}`,
       { method: "GET" }
     )
       .then((response) => response.json())
@@ -51,7 +51,7 @@ export default class DropdownTest extends Component {
   }
   _fetchSecondDropdown(filter) {
     fetch(
-      `http://localhost:3000/secondDropdown?sheet_name=qualityFeedback_section&filter=${filter}`,
+      `http://129.28.79.59:3000/secondDropdown?sheet_name=qualityFeedback_section&filter=${filter}`,
       { method: "GET" }
     )
       .then((response) => response.json())

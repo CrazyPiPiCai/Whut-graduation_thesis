@@ -17,7 +17,7 @@ export default class InfoCompletionView extends Component {
     };
   }
   componentDidMount() {
-    fetch(`http://localhost:3000/select?sheet_name=${this.props.passData}`, {
+    fetch(`http://129.28.79.59:3000/select?sheet_name=${this.props.passData}`, {
       method: "GET"
     })
       .then((response) => response.json())

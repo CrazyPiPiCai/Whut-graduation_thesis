@@ -48,7 +48,7 @@ export default class ButtonTest extends Component {
     let file = {uri: `${global.imagePath}`, type: 'application/octet-stream', name: 'image.jpg'};
     parameters.append("file", file);
 
-    fetch("http://localhost:3000/image", {
+    fetch("http://129.28.79.59:3000/image", {
       method: "POST",
       body: parameters
     })
@@ -74,7 +74,7 @@ export default class ButtonTest extends Component {
     parameters.append("data5", `${global.Info_completion_text[4]}`);
     parameters.append("data6", `${global.Info_completion_text[5]}`);
 
-    fetch("http://localhost:3000/formdata", {
+    fetch("http://129.28.79.59:3000/formdata", {
       method: "POST",
       body: parameters
     })

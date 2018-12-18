@@ -14,7 +14,7 @@ export default class InfoIndexView extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3000/select?sheet_name=info_index`, {
+    fetch(`http://129.28.79.59:3000/select?sheet_name=info_index`, {
       method: "GET"
     })
       .then((response) => response.json())
