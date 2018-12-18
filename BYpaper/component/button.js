@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { View, Button, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
+import Button from "apsl-react-native-button";
 
 import global from "../others/global";
 
@@ -90,19 +91,29 @@ export default class ButtonTest extends Component {
     return (
       <View style={SelfStyles.container}>
         <Button
-          title={this.props.titleText}
-          color="red"
+          style={SelfStyles.buttonStyle}
+          textStyle={SelfStyles.textStyle}
           onPress={() => {
             this._action(this.props.titleText);
-          }}
-        />
+          }}>
+          {this.props.titleText}
+        </Button>
       </View>
     );
   }
 }
 const SelfStyles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    marginTop: 10
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
+  buttonStyle: {
+    borderColor: '#2980b9',
+    backgroundColor: '#3498db'
+  },
+  textStyle: {
+    color: 'white',
   }
 });

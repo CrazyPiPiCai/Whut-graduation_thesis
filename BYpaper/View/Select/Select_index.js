@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 5,
-    marginTop: 10,
+    marginTop: 30,
     flexDirection: "row",
     backgroundColor: "#E6E7E8",
     borderRadius: 5
