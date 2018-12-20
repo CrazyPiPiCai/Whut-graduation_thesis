@@ -85,7 +85,7 @@ export default class SelectView extends Component {
             autoCapitalize="none" //设置首字母不自动大写
             underlineColorAndroid={"transparent"} //下划线颜色设置为透明
             placeholderTextColor={"#aaa"} //设置占位符颜色
-            placeholder={"搜索轨迹名称"}
+            placeholder={"搜索质量反馈数据库"}
             onChangeText={text => this._fetchData(text)}
           />
         </View>
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     fontSize: 15,
-    lineHeight: 38,
+    lineHeight: 20,
     textAlignVertical: "center",
     textDecorationLine: "none"
   },
@@ -174,8 +174,7 @@ const styles = StyleSheet.create({
     width: 65,
     flex: 1,
     alignItems: "center",
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingRight: 5
+    marginLeft: 8,
+    marginTop: 5
   }
 });
