@@ -34,17 +34,21 @@ export default class TextInputTest extends Component {
 }
 const SelfStyles = StyleSheet.create({
   container: {
-    flexDirection: "row"
+    flexDirection: "row",
+    alignItems: 'center'
   },
   leftlabel: {
     marginTop: 10,
-    marginLeft: 10
+    marginLeft: 10,
+    fontSize: 15
   },
   TextInput: {
     borderWidth: 1,
     borderRadius: 4,
     minWidth: 100,
     marginLeft: 5,
-    marginTop: 10
+    marginTop: 10,
+    height: 38,
+    fontSize: 15
   }
 });

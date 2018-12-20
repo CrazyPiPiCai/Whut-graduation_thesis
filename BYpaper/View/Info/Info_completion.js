@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TextInput, Alert, Button } from "react-native";
 import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
-import CheckBox from "react-native-check-box";
+//import CheckBox from "react-native-check-box";
 
 import ButtonTest from "../../component/button"; 
 import global from "../../others/global";
@@ -49,8 +49,10 @@ export default class InfoCompletionView extends Component {
     const element1 = (data, index) => (
       <TextInput
         style={{
-          borderRadius: 4,
+          borderRadius: 2,
+          height:38,
           margin: 5,
+          fontSize: 15,
           backgroundColor: "#fff"
         }}
         underlineColorAndroid="transparent"
@@ -79,7 +81,7 @@ export default class InfoCompletionView extends Component {
             data={state.tableHeadData}
             style={styles.head}
             textStyle={styles.text}
-            flexArr={[1, 3, 1]}
+            flexArr={[1, 3, 3]}
           />
           {this._tableDataExtract().map((rowData, index) => (
             <TableWrapper key={index} style={styles.row}>
@@ -107,7 +109,7 @@ export default class InfoCompletionView extends Component {
                     }
                     */
                   }
-                  style={cellIndex === 1 ? styles.colBig : styles.colSmall}
+                  style={cellIndex === 0 ? styles.colSmall : styles.colBig}
                   textStyle={styles.text}
                 />
               ))}

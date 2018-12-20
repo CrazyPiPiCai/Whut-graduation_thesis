@@ -116,11 +116,11 @@ const styles = StyleSheet.create({
   },
   searchBox: {
     flex: 1,
-    height: 35,
+    minHeight: 15,
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 5,
-    marginTop: 30,
+    marginTop: 5,
     flexDirection: "row",
     backgroundColor: "#E6E7E8",
     borderRadius: 5
@@ -134,13 +134,12 @@ const styles = StyleSheet.create({
   },
   inputText: {
     alignSelf: "center",
-    marginTop: 0,
     flex: 1,
-    height: 30,
+    height: 38,
     marginLeft: 5,
     marginRight: 5,
-    fontSize: 18,
-    lineHeight: 30,
+    fontSize: 15,
+    lineHeight: 38,
     textAlignVertical: "center",
     textDecorationLine: "none"
   },
