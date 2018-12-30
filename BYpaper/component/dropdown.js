@@ -72,16 +72,26 @@ export default class DropdownTest extends Component {
   render() {
     return (
       <View style={SelfStyles.container}>
-        <Text style={SelfStyles.leftlabel}>{this.props.titleText}</Text>
+        <Text style={SelfStyles.leftlabel}>{this.props.titleText} :</Text>
         <ModalDropdown
           style={SelfStyles.rightDropDown}
+          textStyle={{fontSize: 15}}
+          dropdownTextStyle={{fontSize: 15}}
           defaultValue={"请选择！"}
           options={this._selectOption()}
           onSelect={(index, value) => {
-            global.finalText[this.props.ID-1] = value;
-            if(this.props.ID == 1) {
-              this._fetchSecondDropdown(value);
+            if(this.props.identity == '图片查询') {
+              global.select_photo[this.props.ID-1] = value;
+              if(this.props.ID == 1) {
+                this._fetchSecondDropdown(value);
+              }
+            } else {
+              global.Info_quality_text[this.props.ID-1] = value;
+              if(this.props.ID == 1) {
+                this._fetchSecondDropdown(value);
+              }
             }
+            
           }}
           onDropdownWillShow={() => this.setState({refresh:true})}
         />
@@ -94,12 +104,13 @@ const SelfStyles = StyleSheet.create({
     flexDirection: "row"
   },
   leftlabel: {
-    marginTop: 5,
-    marginLeft: 10
+    marginTop: 10,
+    marginLeft: 10,
+    fontSize: 15
   },
   rightDropDown: {
     borderWidth: 1,
     marginLeft: 5,
-    marginTop: 5
+    marginTop: 10
   }
 });

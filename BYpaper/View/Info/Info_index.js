@@ -102,7 +102,7 @@ export default class InfoIndexView extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+  container: { flex: 1, padding: 16, paddingTop: 15, backgroundColor: '#fff' },
   //headline: {fontSize:20,justifyContent:'center',textAlign: 'center'},
   head: { height: 40, backgroundColor: '#808B97' },
   text: { margin: 6 ,textAlign: 'center'},

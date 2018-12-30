@@ -21,18 +21,19 @@ export default class LabelTest extends Component {
     var day = date.getDate().toString();
     var hour =  date.getHours().toString();
     var minute = date.getMinutes().toString();
+    var second = date.getSeconds().toString();
   
-    return year+'年'+month+'月'+day+'日'+' '+hour+':'+minute;
+    return year+'-'+month+'-'+day+' '+hour+':'+minute+':'+second;
   };
   //标签内容填充
   _dataSource(para) {
     switch (para) {
       case "时间":
-        global.finalText[this.props.ID-1] = this._getmyDate()
+        global.Info_quality_text[this.props.ID-1] = this._getmyDate()
         return this._getmyDate();
         break;
       case "人员":
-        global.finalText[this.props.ID-1] = '当前操作人员'
+        global.Info_quality_text[this.props.ID-1] = '当前操作人员'
         return '当前操作人员';
         break;
     }
@@ -40,7 +41,7 @@ export default class LabelTest extends Component {
   render() {
     return (
       <View style={SelfStyles.container}>
-        <Text style={SelfStyles.leftlabel}>{this.props.titleText}</Text>
+        <Text style={SelfStyles.leftlabel}>{this.props.titleText} :</Text>
         <Text style={SelfStyles.rightlabel}>{this._dataSource(this.props.titleText)}</Text>
       </View>
     );
@@ -51,11 +52,13 @@ const SelfStyles = StyleSheet.create({
     flexDirection: "row"
   },
   leftlabel: {
-    marginTop: 5,
-    marginLeft: 10
+    marginTop: 10,
+    marginLeft: 10,
+    fontSize: 15
   },
   rightlabel: {
-    marginLeft:5,
-    marginTop:5
+    marginTop: 10,
+    marginLeft: 5,
+    fontSize: 15
   }
 });

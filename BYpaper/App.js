@@ -14,7 +14,10 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import InfoIndexView from "./View/Info/Info_index";
 import InfoView from "./View/Info/Info_main";
 import InfoCompletionView from "./View/Info/Info_completion";
-import SelectView from "./View/Select/Select_index";
+import SelectIndexView from "./View/Select/select_index";
+import SelectMainView from "./View/Select/select_main";
+import SelectPhotoView from "./View/Select/select_photo";
+import SelectPhotoResultView from "./View/Select/selectResult_photo";
 import InputView from "./View/Input/Input";
 
 class TabIcon extends Component {
@@ -55,7 +58,7 @@ export default class App extends Component {
               title="信息沟通"
               icon={TabIcon}
             >
-              <Scene key="one" component={InfoIndexView} title="主页" />
+              <Scene key="one" component={InfoIndexView} title="信息主页" />
               <Scene key="one_main" component={InfoView} title="质量反馈功能呈现" />
               <Scene key="one_second" component={InfoCompletionView} title="完工反馈功能呈现" />
             </Scene>
@@ -73,8 +76,12 @@ export default class App extends Component {
               iconName="search"
               title="呈现查询"
               icon={TabIcon}
-              component={SelectView}
-            />
+            >
+              <Scene key="one" component={SelectIndexView} title="查询主页" />
+              <Scene key="one_main" component={SelectMainView} title="质量反馈-综合查询" />
+              <Scene key="one_photo" component={SelectPhotoView} title="质量反馈-图片查询" />
+              <Scene key="one_photo_result" component={SelectPhotoResultView} title="查询结果" />
+            </Scene>
           </Tabs>
         </Scene>
       </Router>

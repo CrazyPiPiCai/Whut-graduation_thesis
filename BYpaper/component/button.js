@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Alert } from "react-native";
 import Button from "apsl-react-native-button";
+import { Actions } from 'react-native-router-flux';
 
 import global from "../others/global";
 
@@ -12,20 +13,11 @@ export default class ButtonTest extends Component {
       labelText: ""
     };
   }
-  //获取当前时间
-  _getmyDate() {
-    var date = new Date();
-
-    var year = date.getFullYear().toString();
-    var month = (date.getMonth() + 1).toString();
-    var day = date.getDate().toString();
-    var hour = date.getHours().toString();
-    var minute = date.getMinutes().toString();
-
-    return year + "年" + month + "月" + day + "日" + " " + hour + ":" + minute;
-  }
   _action(para) {
     switch (para) {
+      case "搜索":
+        Actions.one_photo_result();
+        break;
       case "保存":
         console.log('ok');
         break;
@@ -41,10 +33,10 @@ export default class ButtonTest extends Component {
   //post提交
   _postImageData() {
     let parameters = new FormData();
-    parameters.append("data1", `${global.finalText[0]}`);
-    parameters.append("data2", `${global.finalText[1]}`);
-    parameters.append("data3", `${global.finalText[2]}`);
-    parameters.append("data4", `${global.finalText[3]}`);
+    parameters.append("data1", `${global.Info_quality_text[0]}`);
+    parameters.append("data2", `${global.Info_quality_text[1]}`);
+    parameters.append("data3", `${global.Info_quality_text[2]}`);
+    parameters.append("data4", `${global.Info_quality_text[3]}`);
     let file = {uri: `${global.imagePath}`, type: 'application/octet-stream', name: 'image.jpg'};
     parameters.append("file", file);
 

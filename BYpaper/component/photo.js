@@ -49,7 +49,7 @@ export default class PhotoTest extends Component {
   render() {
     return (
       <View style={SelfStyles.container}>
-        <Text style={SelfStyles.leftlabel}>{this.props.titleText}</Text>
+        <Text style={SelfStyles.leftlabel}>{this.props.titleText} :</Text>
         <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
           <View
             style={[
@@ -77,13 +77,17 @@ const SelfStyles = StyleSheet.create({
     alignItems:'center'
   },
   leftlabel: {
+    marginTop: 10,
     marginLeft: 10,
+    fontSize: 15
   },
   avatarContainer: {
     borderColor: "#9B9B9B",
     borderWidth: 1 ,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: 10,
+    marginLeft: 5
   },
   avatar: {
     //borderRadius: 50,

@@ -1,56 +1,26 @@
-import React, { Component } from "react";
-import {
-  View,
-  TextInput,
-  FlatList,
-  StyleSheet,
-  StatusBar,
-  Text,
-  Image,
-  TouchableOpacity
-} from "react-native";
-import { Actions } from "react-native-router-flux";
+import React, { Component } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
+import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
+import { Actions } from 'react-native-router-flux';
 
-export default class SelectView extends Component {
+export default class SelectIndexView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      jsonNumber: 0,
-      data: []
-    };
+      refresh:false,
+      tableHead: ['序号', '应用名','跳转'],
+      data:[]
+    }
   }
 
-  _renderItem = item => {
-    return (
-      <TouchableOpacity style={styles.itemList}>
-        <Image
-              style={styles.itemImage}
-              source={{ uri: `${item.item.photo}`, cache: "force-cache" }}
-            />
-        <View style={styles.itemContainer}>
-          <Text style={styles.itemTitle}>
-              {item.item.ship}的{item.item.section}
-          </Text>
-          <View>
-            <Text style={{ marginLeft: 5, marginTop: 5 }}>
-              拍摄时间：{item.item.time}
-            </Text>
-            <Text style={{ marginLeft: 5, marginTop: 5 }}>
-              操作人员：{item.item.people}
-            </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
-  _fetchData(quest) {
-    fetch(`http://129.28.79.59:3000/search?quest=${quest}`, {
+  componentDidMount() {
+    fetch(`http://129.28.79.59:3000/select?sheet_name=select_index`, {
       method: "GET"
     })
       .then((response) => response.json())
       .then((jsonData) => {
         this.setState({
+          refresh: true,
           jsonNumber: jsonData.length,
           data: jsonData
         });
@@ -60,121 +30,79 @@ export default class SelectView extends Component {
       });
   }
 
-  //行间分割线
-  _separator = () => {
-    return <View style={{ height: 1, backgroundColor: "#7b7b7b" }} />;
-  };
-  
+  _jsonExtract() {
+    if (this.state.refresh) {
+      const result = [];
+      for (var i = 0; i < this.state.jsonNumber; i++) {
+        const {
+          ID,
+          title_text
+        } = this.state.data[i];
+        result.push([
+          `${ID}`,
+          `${title_text}`,
+          '按钮'
+        ]);
+      }
+      return result;
+    } else {
+      return [];
+    }
+  }
+
+  _navigation(index) {
+    const {
+        sheet_name
+      } = this.state.data[index];
+    switch(index) {
+      case 0:
+      Actions.one_main({passData:`${sheet_name}`});
+      break;
+      case 1:
+      Actions.one_photo({passData:`${sheet_name}`,identity:'图片查询'});
+      break;
+    }
+  }
+
   render() {
+    const state = this.state;
+    const element = (data, index) => (
+      <TouchableOpacity onPress={() => this._navigation(index)}>
+        <View style={styles.btn}>
+          <Text style={styles.btnText}>选择</Text>
+        </View>
+      </TouchableOpacity>
+    );
+
     return (
       <View style={styles.container}>
-        <StatusBar
-          animated={true}
-          hidden={false}
-          backgroundColor={"transparent"}
-          translucent={false}
-          barStyle={"light-content"}
-        />
-        <View style={styles.searchBox}>
-          <Image
-            source={require("../../image/search.png")}
-            style={styles.searchIcon}
-          />
-          <TextInput
-            style={styles.inputText}
-            autoCapitalize="none" //设置首字母不自动大写
-            underlineColorAndroid={"transparent"} //下划线颜色设置为透明
-            placeholderTextColor={"#aaa"} //设置占位符颜色
-            placeholder={"搜索质量反馈数据库"}
-            onChangeText={text => this._fetchData(text)}
-          />
-        </View>
-        <View ItemSeparatorComponent={this._separator} />
-        <View style={styles.trailList}>
-          <FlatList
-            ref={flatList => (this._flatList = flatList)}
-            ItemSeparatorComponent={this._separator}
-            renderItem={this._renderItem}
-            keyExtractor={(item, index) => `${index}`}
-            data={this.state.data}
-          />
-        </View>
+        <Table borderStyle={{borderColor: 'transparent'}}>
+          <Row data={state.tableHead} style={styles.head} textStyle={styles.text} flexArr={[1,2,1]}/>
+          {
+            this._jsonExtract().map((rowData, index) => (
+              <TableWrapper key={index} style={styles.row}>
+                {
+                  rowData.map((cellData, cellIndex) => (
+                    <Cell key={cellIndex} data={cellIndex === 2 ? element(cellData, index) : cellData} style={cellIndex === 1 ? styles.colBig : styles.colSmall} textStyle={styles.text}/>
+                  ))
+                }
+              </TableWrapper>
+            ))
+          }
+        </Table>
       </View>
-    );
+    )
   }
 }
+
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "column",
-    flex: 1,
-    paddingTop: 27,
-    paddingBottom: 5,
-    alignItems: "center",
-    backgroundColor: "#fff",
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: "#cdcdcd"
-  },
-  searchBox: {
-    flex: 1,
-    minHeight: 15,
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 5,
-    marginTop: 5,
-    flexDirection: "row",
-    backgroundColor: "#E6E7E8",
-    borderRadius: 5
-  },
-  searchIcon: {
-    alignSelf: "center",
-    marginLeft: 7,
-    marginRight: 7,
-    width: 18,
-    height: 18
-  },
-  inputText: {
-    alignSelf: "center",
-    flex: 1,
-    height: 38,
-    marginLeft: 5,
-    marginRight: 5,
-    fontSize: 15,
-    lineHeight: 20,
-    textAlignVertical: "center",
-    textDecorationLine: "none"
-  },
-  trailList: {
-    flex: 20,
-    width: 400,
-    height: 100,
-    marginLeft: 5,
-    marginRight: 5
-  },
-  itemList: {
-    flexDirection: "row",
-    flex: 1,
-    marginLeft: 20,
-    paddingBottom: 5,
-    paddingTop: 5
-  },
-  itemContainer: {
-    flex: 4.1,
-    marginLeft: 5,
-    justifyContent: "center"
-  },
-  itemTitle: {
-    fontSize: 15,
-    color: "#42a5cb",
-    fontWeight: "700",
-    marginLeft: 10,
-    marginTop: 5
-  },
-  itemImage: {
-    height: 65,
-    width: 65,
-    flex: 1,
-    alignItems: "center",
-    marginLeft: 8,
-    marginTop: 5
-  }
+  container: { flex: 1, padding: 16, paddingTop: 15, backgroundColor: '#fff' },
+  //headline: {fontSize:20,justifyContent:'center',textAlign: 'center'},
+  head: { height: 40, backgroundColor: '#808B97' },
+  text: { margin: 6 ,textAlign: 'center'},
+  row: { flexDirection: 'row', backgroundColor: '#FFF1C1' },
+  colSmall: { flex: 1},
+  colBig :{ flex: 2},
+  btn: { width: 58, height: 18, backgroundColor: '#78B7BB',  borderRadius: 2 ,alignSelf:'center'},
+  btnText: { textAlign: 'center', color: '#fff' }
 });
