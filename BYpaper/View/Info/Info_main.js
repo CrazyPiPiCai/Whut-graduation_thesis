@@ -51,22 +51,22 @@ export default class InfoView extends Component<Props> {
   DynamicLoading() {
     const result = [];
     for (var i = 0; i < this.state.jsonNumber; i++) {
-      const { ID, type, title, dataSource } = this.state.data[i];
+      const { ID, type, title, dataSource, title_size } = this.state.data[i];
       switch (type) {
         case "label":
-          result.push(<LabelTest key={ID} titleText={title} ID={ID}/>);
+          result.push(<LabelTest key={ID} titleText={title} ID={ID} title_size={title_size} />);
           break;
         case "textInput":
-          result.push(<TextInputTest key={ID} titleText={title} ID={ID}/>);
+          result.push(<TextInputTest key={ID} titleText={title} ID={ID} />);
           break;
         case "button":
-          result.push(<ButtonTest key={ID} titleText={title} identity={this.props.identity}/>);
+          result.push(<ButtonTest key={ID} titleText={title} identity={this.props.identity} />);
           break;
         case "dropDown":
-          result.push(<DropdownTest key={ID} titleText={title} net_api={dataSource} ID={ID} />);
+          result.push(<DropdownTest key={ID} titleText={title} net_api={dataSource} ID={ID} title_size={title_size} />);
           break;
         case "photo":
-          result.push(<PhotoTest key={ID} titleText={title} ID={ID}/>);
+          result.push(<PhotoTest key={ID} titleText={title} ID={ID} title_size={title_size} />);
           break;
       }
     }

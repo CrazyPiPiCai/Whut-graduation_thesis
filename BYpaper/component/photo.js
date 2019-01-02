@@ -49,7 +49,15 @@ export default class PhotoTest extends Component {
   render() {
     return (
       <View style={SelfStyles.container}>
-        <Text style={SelfStyles.leftlabel}>{this.props.titleText} :</Text>
+        <Text
+          style={{
+            marginTop: 10,
+            marginLeft: 10,
+            fontSize: this.props.title_size
+          }}
+        >
+          {this.props.titleText} :
+        </Text>
         <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
           <View
             style={[

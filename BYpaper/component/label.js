@@ -41,7 +41,15 @@ export default class LabelTest extends Component {
   render() {
     return (
       <View style={SelfStyles.container}>
-        <Text style={SelfStyles.leftlabel}>{this.props.titleText} :</Text>
+        <Text
+          style={{
+            marginTop: 10,
+            marginLeft: 10,
+            fontSize: this.props.title_size
+          }}
+        >
+          {this.props.titleText} :
+        </Text>
         <Text style={SelfStyles.rightlabel}>{this._dataSource(this.props.titleText)}</Text>
       </View>
     );
@@ -50,11 +58,6 @@ export default class LabelTest extends Component {
 const SelfStyles = StyleSheet.create({
   container: {
     flexDirection: "row"
-  },
-  leftlabel: {
-    marginTop: 10,
-    marginLeft: 10,
-    fontSize: 15
   },
   rightlabel: {
     marginTop: 10,

@@ -17,12 +17,12 @@ export default class DropdownTest extends Component {
   componentDidMount() {
     global.dropDownID.push(this.props.ID);
     const First = Math.min.apply(null, global.dropDownID);
-    if(this.props.ID == First) {
+    if (this.props.ID == First) {
       this._fetchFirstDropdown();
     }
   }
   _selectOption() {
-    if(this.props.ID == 1){
+    if (this.props.ID == 1) {
       const result = [];
       for (var i = 0; i < this.state.jsonNumber; i++) {
         const { dataSource } = this.state.data[i];
@@ -34,10 +34,9 @@ export default class DropdownTest extends Component {
     }
   }
   _fetchFirstDropdown() {
-    fetch(
-      `http://129.28.79.59:3000/select?sheet_name=${this.props.net_api}`,
-      { method: "GET" }
-    )
+    fetch(`http://129.28.79.59:3000/select?sheet_name=${this.props.net_api}`, {
+      method: "GET"
+    })
       .then((response) => response.json())
       .then((jsonData) => {
         this.setState({
@@ -56,8 +55,8 @@ export default class DropdownTest extends Component {
     )
       .then((response) => response.json())
       .then((jsonData) => {
-        const jsonNumber=jsonData.length;
-        const data=jsonData;
+        const jsonNumber = jsonData.length;
+        const data = jsonData;
         const result = [];
         for (var i = 0; i < jsonNumber; i++) {
           const { dataSource } = data[i];
@@ -72,28 +71,35 @@ export default class DropdownTest extends Component {
   render() {
     return (
       <View style={SelfStyles.container}>
-        <Text style={SelfStyles.leftlabel}>{this.props.titleText} :</Text>
+        <Text
+          style={{
+            marginTop: 10,
+            marginLeft: 10,
+            fontSize: this.props.title_size
+          }}
+        >
+          {this.props.titleText} :
+        </Text>
         <ModalDropdown
           style={SelfStyles.rightDropDown}
-          textStyle={{fontSize: 15}}
-          dropdownTextStyle={{fontSize: 15}}
+          textStyle={{ fontSize: 15 }}
+          dropdownTextStyle={{ fontSize: 15 }}
           defaultValue={"请选择！"}
           options={this._selectOption()}
           onSelect={(index, value) => {
-            if(this.props.identity == '图片查询') {
-              global.select_photo[this.props.ID-1] = value;
-              if(this.props.ID == 1) {
+            if (this.props.identity == "图片查询") {
+              global.select_photo[this.props.ID - 1] = value;
+              if (this.props.ID == 1) {
                 this._fetchSecondDropdown(value);
               }
             } else {
-              global.Info_quality_text[this.props.ID-1] = value;
-              if(this.props.ID == 1) {
+              global.Info_quality_text[this.props.ID - 1] = value;
+              if (this.props.ID == 1) {
                 this._fetchSecondDropdown(value);
               }
             }
-            
           }}
-          onDropdownWillShow={() => this.setState({refresh:true})}
+          onDropdownWillShow={() => this.setState({ refresh: true })}
         />
       </View>
     );
@@ -102,11 +108,6 @@ export default class DropdownTest extends Component {
 const SelfStyles = StyleSheet.create({
   container: {
     flexDirection: "row"
-  },
-  leftlabel: {
-    marginTop: 10,
-    marginLeft: 10,
-    fontSize: 15
   },
   rightDropDown: {
     borderWidth: 1,
