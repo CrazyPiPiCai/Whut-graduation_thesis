@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View, Alert } from "react-native";
 import Barcode from "react-native-smart-barcode";
 
+import global from '.././others/global';
+
 type Props = {};
 export default class qCode extends Component<Props> {
   //构造方法
@@ -22,9 +24,10 @@ export default class qCode extends Component<Props> {
   }
   _onBarCodeRead = e => {
     // console.log(`e.nativeEvent.data.type = ${e.nativeEvent.data.type}, e.nativeEvent.data.code = ${e.nativeEvent.data.code}`)
+    global.qrResult = e.nativeEvent.data.code;
     this._stopScan();
     Alert.alert("二维码", e.nativeEvent.data.code, [
-      { text: "确认", onPress: () => this._startScan() }
+      { text: "确认", onPress: () =>  this._startScan() }
     ]);
   };
 

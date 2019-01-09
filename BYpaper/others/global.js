@@ -12,6 +12,8 @@ const object = {
     //自定义输入的输入框的内容
     customInput: [],
     //查询参数
-    select_photo: []
+    select_photo: [],
+    //二维码结果
+    qrResult: '',
  };
  export default object;

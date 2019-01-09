@@ -43,6 +43,7 @@ const SelfStyles = StyleSheet.create({
     minWidth: 140,
     marginLeft: 5,
     marginTop: 10,
+    height: 38,
     fontSize: 15
   }
 });

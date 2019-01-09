@@ -19,6 +19,8 @@ import SelectMainView from "./View/Select/select_main";
 import SelectPhotoView from "./View/Select/select_photo";
 import SelectPhotoResultView from "./View/Select/selectResult_photo";
 import InputView from "./View/Input/Input";
+import QRCODE from './View/qrCode/qr_index'
+import qCode from './component/qCode';
 
 class TabIcon extends Component {
   render() {
@@ -81,6 +83,16 @@ export default class App extends Component {
               <Scene key="one_main" component={SelectMainView} title="质量反馈-综合查询" />
               <Scene key="one_photo" component={SelectPhotoView} title="质量反馈-图片查询" />
               <Scene key="one_photo_result" component={SelectPhotoResultView} title="查询结果" />
+            </Scene>
+
+            <Scene
+              key="qcode"
+              iconName="qrcode"
+              title="二维码扫描"
+              icon={TabIcon}
+            >
+              <Scene key="qr_index" component={QRCODE} title="扫描主页" />
+              <Scene key="qr_main" component={qCode} title="功能验证" />
             </Scene>
           </Tabs>
         </Scene>
